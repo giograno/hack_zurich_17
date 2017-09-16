@@ -142,16 +142,17 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Mc8-gP-VV8" id="atG-uX-Jd4"/>
+                        <segue destination="SeJ-oT-xd7" kind="show" identifier="Indication" id="Y9f-Na-gej"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRB-Cz-NFm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1884" y="138.98050974512745"/>
         </scene>
-        <!--View Controller-->
+        <!--Table View Controller-->
         <scene sceneID="97V-kP-7fD">
             <objects>
-                <viewController id="SeJ-oT-xd7" sceneMemberID="viewController">
+                <viewController id="SeJ-oT-xd7" customClass="TableViewController" customModule="hackZurich" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hVz-8p-H67"/>
                         <viewControllerLayoutGuide type="bottom" id="SUX-w3-SWO"/>
@@ -159,12 +160,41 @@
                     <view key="view" contentMode="scaleToFill" id="RP6-PP-WbH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gtb-2L-96c">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Qt5-H1-n2C">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qt5-H1-n2C" id="ypJ-9V-A4Y">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="SeJ-oT-xd7" id="eQq-ib-Ueo"/>
+                                    <outlet property="delegate" destination="SeJ-oT-xd7" id="Apr-f8-A6j"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gtb-2L-96c" firstAttribute="top" secondItem="hVz-8p-H67" secondAttribute="bottom" id="6Uu-FS-6zn"/>
+                            <constraint firstAttribute="trailing" secondItem="Gtb-2L-96c" secondAttribute="trailing" id="Dvh-7q-oFx"/>
+                            <constraint firstItem="SUX-w3-SWO" firstAttribute="top" secondItem="Gtb-2L-96c" secondAttribute="bottom" id="L0U-Nv-I6z"/>
+                            <constraint firstItem="Gtb-2L-96c" firstAttribute="leading" secondItem="RP6-PP-WbH" secondAttribute="leading" id="LXE-qr-fpm"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Gtb-2L-96c" id="WwU-QL-ljb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mUg-Z7-een" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2833" y="139"/>
+            <point key="canvasLocation" x="2832.8000000000002" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oiX-fa-3fe">

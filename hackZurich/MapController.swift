@@ -161,8 +161,7 @@ class MapController: UIViewController {
 //    }
     
     func goInstructions(_ sender: UIBarButtonItem) {
-        //TODO implement: segue into the page for the creation of a lesson
-        self.performSegue(withIdentifier: "timeSegue", sender: self)
+        self.performSegue(withIdentifier: "Indication", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
