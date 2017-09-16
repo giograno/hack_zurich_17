@@ -49,14 +49,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
         startingPosition.placeholder = "Starting Point"
         endingPosition.placeholder = "Ending Point"
         
+        setupButton()
         setupSlider()
         setupTextField()
     }
+    
+    func setupButton() {
+        search.setTitle("Search", for: .normal)
+    }
+    
     @IBAction func startSearch(_ sender: Any) {
+        // to implement
+        print("To implement")
     }
     
     func setupSlider() {
-        let slider = MDCSlider(frame: CGRect(x: 67, y: 421, width: 260, height: 75))
+        let slider = MDCSlider(frame: CGRect(x: 67, y: 450, width: 260, height: 75))
         slider.minimumValue = 0
         slider.maximumValue = 5
         slider.numberOfDiscreteValues = 8
