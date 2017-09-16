@@ -13,6 +13,7 @@
 		421619C51F6C90D700416C7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 421619C41F6C90D700416C7A /* Assets.xcassets */; };
 		421619C81F6C90D700416C7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421619C61F6C90D700416C7A /* LaunchScreen.storyboard */; };
 		421619D01F6C9C6000416C7A /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421619CF1F6C9C6000416C7A /* MapController.swift */; };
+		422F715A1F6DC24200C70B3D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F71591F6DC24200C70B3D /* Utils.swift */; };
 		425716A91F6D58B600DB5A30 /* BarClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425716A81F6D58B600DB5A30 /* BarClass.swift */; };
 		B187F243D849469CF93B1836 /* Pods_hackZurich.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A43397228B87F52FEB8440D9 /* Pods_hackZurich.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 		421619C71F6C90D700416C7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		421619C91F6C90D700416C7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		421619CF1F6C9C6000416C7A /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		422F71591F6DC24200C70B3D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		425716A81F6D58B600DB5A30 /* BarClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarClass.swift; sourceTree = "<group>"; };
 		63EF11EFEEDAD370F4A5CDA2 /* Pods-hackZurich.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackZurich.release.xcconfig"; path = "Pods/Target Support Files/Pods-hackZurich/Pods-hackZurich.release.xcconfig"; sourceTree = "<group>"; };
 		A43397228B87F52FEB8440D9 /* Pods_hackZurich.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hackZurich.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +75,7 @@
 				421619C91F6C90D700416C7A /* Info.plist */,
 				421619CF1F6C9C6000416C7A /* MapController.swift */,
 				425716A81F6D58B600DB5A30 /* BarClass.swift */,
+				422F71591F6DC24200C70B3D /* Utils.swift */,
 			);
 			path = hackZurich;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422F715A1F6DC24200C70B3D /* Utils.swift in Sources */,
 				425716A91F6D58B600DB5A30 /* BarClass.swift in Sources */,
 				421619C01F6C90D700416C7A /* ViewController.swift in Sources */,
 				421619D01F6C9C6000416C7A /* MapController.swift in Sources */,

@@ -9,17 +9,15 @@
 import UIKit
 import ArcGIS
 import MaterialComponents.MaterialSlider
-import MaterialComponents.MaterialAppBar
 import MaterialComponents.MaterialTextFields
-import MaterialComponents.MDCFlatButton
 import MaterialComponents.MaterialDialogs
 
 // Handle the first user input view
 class ViewController: UIViewController, UITextFieldDelegate {
 
-    // Material Components navigation bar
-    let appBar = MDCAppBar()
-        
+//    // Material Components navigation bar
+//    let appBar = MDCAppBar()
+    
     // Switch outlets
     @IBOutlet weak var sightseeing_switch: UISwitch!
     @IBOutlet weak var bars_switch: UISwitch!
@@ -29,20 +27,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var startingPosition: MDCTextField!
     @IBOutlet weak var endingPosition: MDCTextField!
     
-    // Button to Trigger the map search
-    @IBOutlet weak var search: MDCFlatButton!
-
+    @IBOutlet weak var button2: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Settting for Navigation Controller
-        addChildViewController(appBar.headerViewController)
-        appBar.headerViewController.headerView.backgroundColor = UIColor(red: 1.0, green: 0.76, blue: 0.03, alpha: 1.0)
-        appBar.navigationBar.tintColor = UIColor.black
-        appBar.addSubviewsToParent()
-        
-        
-        title = "Computational Tourism"
+        Utils.setNavigationControllerStatusBar(self, title: "Computational Tourism", color: CIColor(color: Utils.myColor), style: UIBarStyle.default)
         
         // Setting the placeholders
         self.view.addSubview(startingPosition)
@@ -51,19 +41,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         startingPosition.placeholder = "Starting Point"
         endingPosition.placeholder = "Ending Point"
         
-        setupButton()
         setupSlider()
         setupTextField()
-    }
-    
-    func setupButton() {
-        search.setTitle("Search", for: .normal)
-    }
-    
-    @IBAction func startSearch(_ sender: Any) {
-        // to implement
-        print("To implement")
-        self.performSegue(withIdentifier: "GenerateMap", sender: self)
     }
     
     func setupSlider() {
@@ -76,6 +55,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
                          action: #selector(didChangeSliderValue(senderSlider:)),
                          for: .valueChanged)
         view.addSubview(slider)
+    }
+    
+    @IBAction func search(_ sender: Any) {
+        print("here")
+        self.performSegue(withIdentifier: "GenerateMap", sender: self)
     }
     
     func didChangeSliderValue(senderSlider:MDCSlider) {

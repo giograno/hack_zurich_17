@@ -10,13 +10,12 @@ import UIKit
 import ArcGIS
 
 class MapController: UIViewController {
-
     
     @IBOutlet weak var mapView: AGSMapView!
 
     // Maximum amount of time
     var time            : Double = 0.0
-    var total_time      : String = "320"; // hard coded
+    var total_time      : String = "200"; // hard coded
     
     // Geoprocessing URL
     let geo_URL         : String = "https://utility.arcgis.com/usrsvcs/appservices/ueHF8ushjjxEgUyO/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem"
@@ -38,6 +37,9 @@ class MapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Utils.setNavigationControllerStatusBar(self, title: "Maps", color: CIColor(color: Utils.myColor), style: UIBarStyle.default)
+
         
         // instantiate map with basemap, initial viewpoint and level of detail
         let map = AGSMap(basemapType: AGSBasemapType.streets, latitude: 47.390173, longitude: 8.5062531, levelOfDetail: 13)
@@ -99,10 +101,8 @@ class MapController: UIViewController {
         
         params.inputs["orders"] = AGSGeoprocessingString(value: self.wrap_features(featureList: place_feature_list))
         
-        print(self.wrap_features(featureList: place_feature_list))
         
         let auxDepots : String = self.wrap_features(featureList: [self.feature_helper(location: self.technopark)])
-        print(auxDepots)
         params.inputs["depots"] = AGSGeoprocessingString(value: auxDepots)
         
         // Initiate the job
