@@ -29,7 +29,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var endingPosition: MDCTextField!
     
     // Button to Trigger the map search
-    @IBOutlet weak var search: UIButton!
+    @IBOutlet weak var search: MDCFlatButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
