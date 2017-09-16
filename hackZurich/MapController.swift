@@ -34,12 +34,13 @@ class MapController: UIViewController {
     let hb              : Place = Place(lat: 47.377923, lon: 8.5380011, name: "Technopark")
     
     var routeGraphicsOverlay = AGSGraphicsOverlay()
+    var stopGraphicsOverlay = AGSGraphicsOverlay()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Utils.setNavigationControllerStatusBar(self, title: "Maps", color: CIColor(color: Utils.myColor), style: UIBarStyle.default)
+        let addButton = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(goInstructions(_:)))
 
+        Utils.setMapsController(self, title: "Maps", color: CIColor(color: Utils.myColor), style: UIBarStyle.default, button: addButton)
         
         // instantiate map with basemap, initial viewpoint and level of detail
         let map = AGSMap(basemapType: AGSBasemapType.streets, latitude: 47.390173, longitude: 8.5062531, levelOfDetail: 13)
@@ -50,7 +51,7 @@ class MapController: UIViewController {
         // Initialize geoprocessing task with the url of the service
         self.geoprocessingTask = AGSGeoprocessingTask(url: URL(string: geo_URL)!)
         
-        self.mapView.graphicsOverlays.addObjects(from: [routeGraphicsOverlay])
+        self.mapView.graphicsOverlays.addObjects(from: [routeGraphicsOverlay, stopGraphicsOverlay])
         
         calculate_route()
     }
@@ -69,7 +70,7 @@ class MapController: UIViewController {
     //method provides a line symbol for the route graphic
     func routeSymbol() -> AGSSymbol {
         
-        let outerSymbol = AGSSimpleLineSymbol(style: .solid, color: UIColor.blue, width: 5)
+        let outerSymbol = AGSSimpleLineSymbol(style: .solid, color: UIColor.red, width: 5)
         let innerSymbol = AGSSimpleLineSymbol(style: .solid, color: UIColor.blue, width: 2)
         let compositeSymbol = AGSCompositeSymbol(symbols: [outerSymbol, innerSymbol])
         return compositeSymbol
@@ -109,6 +110,7 @@ class MapController: UIViewController {
         self.geoprocessingJob = self.geoprocessingTask.geoprocessingJob(with: params)
         
         routeGraphicsOverlay.graphics.removeAllObjects()
+        stopGraphicsOverlay.graphics.removeAllObjects()
         
         self.geoprocessingJob.start(statusHandler: { (status: AGSJobStatus) in
             print(status.rawValue)
@@ -118,18 +120,6 @@ class MapController: UIViewController {
                 print("error")
             }
             else {
-                // Remove previous layers
-//                self?.mapView.map?.operationalLayers.removeAllObjects()
-                
-                // Add the new layer to the map
-//                var out_features : AGSGeoprocessingFeatures = result?.outputs["out_routes"] as! AGSGeoprocessingFeatures
-//                print(out_features.features?.geometryType)
-                
-//                guard let generatedRoute = routeResult?.routes[0] else {
-//                    self?.showAlert(messageText: "Error", informativeText: "No route found")
-//                    return
-//                }
-                
                 
                 if let resultFeatures = result?.outputs["out_routes"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
                     for feature in featureSet.featureEnumerator().allObjects {
@@ -137,10 +127,42 @@ class MapController: UIViewController {
                         self?.routeGraphicsOverlay.graphics.add(graphic)
                     }
                 }
+                let markerSymbol = AGSSimpleMarkerSymbol(style: .triangle, color: UIColor.black, size: 14)
                 
-                //set map view's viewpoint to the new layer's full extent
+                var i = 0
+                if let resultFeatures = result?.outputs["out_stops"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
+                    for feature in featureSet.featureEnumerator().allObjects {
+                        i += 1
+                        print(feature.attributes)
+                        let graphic = AGSGraphic(geometry: feature.geometry, symbol: markerSymbol, attributes: nil)
+                        self?.stopGraphicsOverlay.graphics.add(graphic)
+                    }
+                    print(i)
+                }
+//                var i = 0
+//                if let resultFeatures = result?.outputs["out_directions"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
+//                    for feature in featureSet.featureEnumerator().allObjects {
+//                        i += 1
+//                        print(feature.attributes)
+//                        let graphic = AGSGraphic(geometry: feature.geometry, symbol: markerSymbol, attributes: nil)
+//                        self?.stopGraphicsOverlay.graphics.add(graphic)
+//                    }
+//                    print(i)
+//                }
+                
             }
         }
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        
+//        addButton.tintColor = UIColor.black
+//        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = addButton
+//    }
+    
+    func goInstructions(_ sender: UIBarButtonItem) {
+        //TODO implement: segue into the page for the creation of a lesson
+        self.performSegue(withIdentifier: "timeSegue", sender: self)
     }
     
     override func didReceiveMemoryWarning() {

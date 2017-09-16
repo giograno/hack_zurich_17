@@ -23,4 +23,16 @@ class Utils {
         navigation.navigationBar.tintColor = UIColor.black
         myView.navigationItem.title = title
     }
+    
+    static func setMapsController(_ myView: UIViewController, title: String, color: CIColor, style: UIBarStyle, button: UIBarButtonItem) {
+        let navigation = myView.navigationController!
+        navigation.navigationBar.barStyle = style
+        navigation.navigationBar.barTintColor = UIColor(ciColor: color)
+        navigation.navigationBar.isTranslucent = false
+        navigation.navigationBar.tintColor = UIColor.black
+        myView.navigationItem.title = title
+        
+        button.tintColor = UIColor.black
+        myView.navigationItem.rightBarButtonItem = button
+    }
 }
