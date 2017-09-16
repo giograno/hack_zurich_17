@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		421619BE1F6C90D700416C7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421619BD1F6C90D700416C7A /* AppDelegate.swift */; };
+		421619C01F6C90D700416C7A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421619BF1F6C90D700416C7A /* ViewController.swift */; };
+		421619C31F6C90D700416C7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421619C11F6C90D700416C7A /* Main.storyboard */; };
+		421619C51F6C90D700416C7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 421619C41F6C90D700416C7A /* Assets.xcassets */; };
+		421619C81F6C90D700416C7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421619C61F6C90D700416C7A /* LaunchScreen.storyboard */; };
+		421619D01F6C9C6000416C7A /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421619CF1F6C9C6000416C7A /* MapController.swift */; };
+		B187F243D849469CF93B1836 /* Pods_hackZurich.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A43397228B87F52FEB8440D9 /* Pods_hackZurich.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2012C00E70F959B6669578A0 /* Pods-hackZurich.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackZurich.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hackZurich/Pods-hackZurich.debug.xcconfig"; sourceTree = "<group>"; };
+		421619BA1F6C90D700416C7A /* hackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		421619BD1F6C90D700416C7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		421619BF1F6C90D700416C7A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		421619C21F6C90D700416C7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		421619C41F6C90D700416C7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		421619C71F6C90D700416C7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		421619C91F6C90D700416C7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		421619CF1F6C9C6000416C7A /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		63EF11EFEEDAD370F4A5CDA2 /* Pods-hackZurich.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackZurich.release.xcconfig"; path = "Pods/Target Support Files/Pods-hackZurich/Pods-hackZurich.release.xcconfig"; sourceTree = "<group>"; };
+		A43397228B87F52FEB8440D9 /* Pods_hackZurich.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hackZurich.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		421619B71F6C90D700416C7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B187F243D849469CF93B1836 /* Pods_hackZurich.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		421619B11F6C90D700416C7A = {
+			isa = PBXGroup;
+			children = (
+				421619BC1F6C90D700416C7A /* hackZurich */,
+				421619BB1F6C90D700416C7A /* Products */,
+				E5734A4DA39D562D37D161FA /* Pods */,
+				56683758AFDA1E1F4936F93A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		421619BB1F6C90D700416C7A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				421619BA1F6C90D700416C7A /* hackZurich.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		421619BC1F6C90D700416C7A /* hackZurich */ = {
+			isa = PBXGroup;
+			children = (
+				421619BD1F6C90D700416C7A /* AppDelegate.swift */,
+				421619BF1F6C90D700416C7A /* ViewController.swift */,
+				421619C11F6C90D700416C7A /* Main.storyboard */,
+				421619C41F6C90D700416C7A /* Assets.xcassets */,
+				421619C61F6C90D700416C7A /* LaunchScreen.storyboard */,
+				421619C91F6C90D700416C7A /* Info.plist */,
+				421619CF1F6C9C6000416C7A /* MapController.swift */,
+			);
+			path = hackZurich;
+			sourceTree = "<group>";
+		};
+		56683758AFDA1E1F4936F93A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A43397228B87F52FEB8440D9 /* Pods_hackZurich.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E5734A4DA39D562D37D161FA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2012C00E70F959B6669578A0 /* Pods-hackZurich.debug.xcconfig */,
+				63EF11EFEEDAD370F4A5CDA2 /* Pods-hackZurich.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		421619B91F6C90D700416C7A /* hackZurich */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 421619CC1F6C90D700416C7A /* Build configuration list for PBXNativeTarget "hackZurich" */;
+			buildPhases = (
+				E0CE880B9587E4E542CC39E6 /* [CP] Check Pods Manifest.lock */,
+				421619B61F6C90D700416C7A /* Sources */,
+				421619B71F6C90D700416C7A /* Frameworks */,
+				421619B81F6C90D700416C7A /* Resources */,
+				018E8E38B7FD04374225FDE1 /* [CP] Embed Pods Frameworks */,
+				F5E928D4D68CF434BEC783DF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hackZurich;
+			productName = hackZurich;
+			productReference = 421619BA1F6C90D700416C7A /* hackZurich.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		421619B21F6C90D700416C7A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Giovanni Grano";
+				TargetAttributes = {
+					421619B91F6C90D700416C7A = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 93Y79F553H;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 421619B51F6C90D700416C7A /* Build configuration list for PBXProject "hackZurich" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 421619B11F6C90D700416C7A;
+			productRefGroup = 421619BB1F6C90D700416C7A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				421619B91F6C90D700416C7A /* hackZurich */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		421619B81F6C90D700416C7A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				421619C81F6C90D700416C7A /* LaunchScreen.storyboard in Resources */,
+				421619C51F6C90D700416C7A /* Assets.xcassets in Resources */,
+				421619C31F6C90D700416C7A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		018E8E38B7FD04374225FDE1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-hackZurich/Pods-hackZurich-frameworks.sh",
+				"${PODS_ROOT}/ArcGIS-Runtime-SDK-iOS/ArcGIS.framework",
+				"${PODS_ROOT}/ArcGIS-Runtime-SDK-iOS/ArcGIS.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ArcGIS.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/ArcGIS.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hackZurich/Pods-hackZurich-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0CE880B9587E4E542CC39E6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-hackZurich-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5E928D4D68CF434BEC783DF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-hackZurich/Pods-hackZurich-resources.sh",
+				"${PODS_ROOT}/ArcGIS-Runtime-SDK-iOS/ArcGIS.framework/ArcGIS.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hackZurich/Pods-hackZurich-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		421619B61F6C90D700416C7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				421619C01F6C90D700416C7A /* ViewController.swift in Sources */,
+				421619D01F6C9C6000416C7A /* MapController.swift in Sources */,
+				421619BE1F6C90D700416C7A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		421619C11F6C90D700416C7A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				421619C21F6C90D700416C7A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		421619C61F6C90D700416C7A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				421619C71F6C90D700416C7A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		421619CA1F6C90D700416C7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		421619CB1F6C90D700416C7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		421619CD1F6C90D700416C7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2012C00E70F959B6669578A0 /* Pods-hackZurich.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93Y79F553H;
+				INFOPLIST_FILE = hackZurich/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ifi.hack.hackZurich;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		421619CE1F6C90D700416C7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63EF11EFEEDAD370F4A5CDA2 /* Pods-hackZurich.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93Y79F553H;
+				INFOPLIST_FILE = hackZurich/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.ifi.hack.hackZurich;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		421619B51F6C90D700416C7A /* Build configuration list for PBXProject "hackZurich" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				421619CA1F6C90D700416C7A /* Debug */,
+				421619CB1F6C90D700416C7A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		421619CC1F6C90D700416C7A /* Build configuration list for PBXNativeTarget "hackZurich" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				421619CD1F6C90D700416C7A /* Debug */,
+				421619CE1F6C90D700416C7A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 421619B21F6C90D700416C7A /* Project object */;
+}
