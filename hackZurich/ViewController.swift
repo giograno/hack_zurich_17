@@ -11,6 +11,7 @@ import ArcGIS
 import MaterialComponents.MaterialSlider
 import MaterialComponents.MaterialAppBar
 import MaterialComponents.MaterialTextFields
+import MaterialComponents.MDCFlatButton
 
 // Handle the first user input view
 class ViewController: UIViewController, UITextFieldDelegate {
@@ -27,6 +28,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var startingPosition: MDCTextField!
     @IBOutlet weak var endingPosition: MDCTextField!
     
+    // Button to Trigger the map search
+    @IBOutlet weak var search: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,7 +49,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
         startingPosition.placeholder = "Starting Point"
         endingPosition.placeholder = "Ending Point"
         
+        setupSlider()
         setupTextField()
+    }
+    @IBAction func startSearch(_ sender: Any) {
+    }
+    
+    func setupSlider() {
+        let slider = MDCSlider(frame: CGRect(x: 67, y: 421, width: 260, height: 75))
+        slider.minimumValue = 0
+        slider.maximumValue = 5
+        slider.numberOfDiscreteValues = 8
+        
+        slider.addTarget(self,
+                         action: #selector(didChangeSliderValue(senderSlider:)),
+                         for: .valueChanged)
+        view.addSubview(slider)
+    }
+    
+    func didChangeSliderValue(senderSlider:MDCSlider) {
+        print("Did change slider value to: %@", senderSlider.value)
     }
     
     func setupTextField() {

@@ -68,6 +68,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3V-0i-6iP">
+                                <rect key="frame" x="135" y="557" width="104" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="startSearch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nhL-iv-H4i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -75,6 +83,7 @@
                         <outlet property="bars_switch" destination="7gM-FC-7aT" id="xNi-6D-Yv9"/>
                         <outlet property="coffee_switch" destination="rzC-eN-xls" id="jFj-tb-Z0v"/>
                         <outlet property="endingPosition" destination="qYb-ya-JN3" id="Akd-do-6e8"/>
+                        <outlet property="search" destination="M3V-0i-6iP" id="X80-N4-uRe"/>
                         <outlet property="sightseeing_switch" destination="evA-j1-hdR" id="IpR-85-FP8"/>
                         <outlet property="startingPosition" destination="JPp-OF-Bfi" id="pAS-AW-fsv"/>
                     </connections>
