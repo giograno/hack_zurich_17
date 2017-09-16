@@ -46,7 +46,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupSlider() {
-        let slider = MDCSlider(frame: CGRect(x: 67, y: 450, width: 260, height: 75))
+        let slider = MDCSlider(frame: CGRect(x: 67, y: 350, width: 260, height: 75))
         slider.minimumValue = 0
         slider.maximumValue = 5
         slider.numberOfDiscreteValues = 8

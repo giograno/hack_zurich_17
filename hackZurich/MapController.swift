@@ -30,7 +30,7 @@ class MapController: UIViewController {
     var isCoffee        : Bool = false
     
     // Hardcoded technopark starting point
-    let technopark      : Place = Place(lat: 47.414288300000003, lon: 8.549590600000000, name: "Technopark")
+    let technopark      : Place = Place(lat: 47.390173, lon: 8.5062531, name: "Technopark")
     let hb              : Place = Place(lat: 47.377923, lon: 8.5380011, name: "Technopark")
     
     var routeGraphicsOverlay = AGSGraphicsOverlay()
