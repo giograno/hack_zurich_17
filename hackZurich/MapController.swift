@@ -16,10 +16,10 @@ class MapController: UIViewController {
 
     // Maximum amount of time
     var time            : Double = 0.0
-    var total_time      : String = "120"; // hard coded
+    var total_time      : String = "320"; // hard coded
     
     // Geoprocessing URL
-    let geo_URL         : String = "https://utility.arcgis.com/usrsvcs/appservices/ueHF8ushjjxEgUyO/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob"
+    let geo_URL         : String = "https://utility.arcgis.com/usrsvcs/appservices/ueHF8ushjjxEgUyO/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem"
     
     //
     var geoprocessingTask: AGSGeoprocessingTask!
@@ -31,20 +31,8 @@ class MapController: UIViewController {
     var isCoffee        : Bool = false
     
     // Hardcoded technopark starting point
-    let technopark      : Place = Place(lat: 47.4142883, lon: 8.5495906, name: "Technopark Zurich")
-    let hb              : Place = Place(lat: 47.377923, lon: 8.5380011, name: "Technopark Zurich")
-    
-    
-    var startGeometry   : AGSPoint!
-    var endGeometry     : AGSPoint!
-    
-    var stopGraphicsOverlay = AGSGraphicsOverlay()
-
-    // The route task
-    var routeTask:AGSRouteTask!
-    var routeParameters:AGSRouteParameters!
-    
-    private var graphicsOverlay:AGSGraphicsOverlay!
+    let technopark      : Place = Place(lat: 47.414288300000003, lon: 8.549590600000000, name: "Technopark")
+    let hb              : Place = Place(lat: 47.377923, lon: 8.5380011, name: "Technopark")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,34 +45,37 @@ class MapController: UIViewController {
         
         // Initialize geoprocessing task with the url of the service
         self.geoprocessingTask = AGSGeoprocessingTask(url: URL(string: geo_URL)!)
-
-        // initialize the route task
-        self.routeTask = AGSRouteTask(url: URL(string: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route")!)
-
-        let graphicsOverlay = AGSGraphicsOverlay()
-        self.mapView.graphicsOverlays.add(graphicsOverlay)
+        
         calculate_route()
-        //add some buoy positions to the graphics overlay
-//        addBuoyPoints(to: graphicsOverlay)
-
     }
     
     private func feature_helper(location: Place) -> String {
-        return "{\"geometry\":{\"x\":" + location.long.toString() + ",\"y\":" + location.lat.toString() + ", \"attributes\":{\"Name\":\"" + location.name + "\", \"ServiceTime\" : 35}}"
+        let aux : String = "{\"geometry\":{\"x\":" + location.long.toString() + ",\"y\":" + location.lat.toString() + "}, \"attributes\":{\"Name\":\"" + location.name + "\", \"ServiceTime\" : 15}}"
+        return aux
     }
     
     private func wrap_features(featureList : [String]) -> String {
-        return "{\"features\": [" + featureList.joined(separator: ",") + "]}"
+        let joined : String = featureList.joined(separator: ",")
+        let aux = "{\"features\": [" + joined + "]}"
+        return aux
     }
     
     private func calculate_route() {
         
         // Geoprocessing parameters
         let params = AGSGeoprocessingParameters(executionType: .asynchronousSubmit)
+        params.processSpatialReference = self.mapView.map?.spatialReference
+        params.outputSpatialReference = self.mapView.map?.spatialReference
+
         params.inputs["default_date"] = AGSGeoprocessingDouble(value: 1455609600000)
         params.inputs["time_units"] = AGSGeoprocessingString(value: "Minutes")
-        params.inputs["travel_mode"] = AGSGeoprocessingString(value: "{\"attributeParameterValues\": [{\"parameterName\": \"Restriction Usage\", \"attributeName\": \"Walking\", \"value\": \"PROHIBITED\"}, {\"parameterName\": \"Restriction Usage\", \"attributeName\": \"Preferred for Pedestrians\", \"value\": \"PREFER_LOW\"}, {\"parameterName\": \"Walking Speed (km/h)\", \"attributeName\": \"WalkTime\", \"value\": 5}], \"description\": \"Follows paths and roads that allow pedestrian traffic and finds solutions that optimize travel time. The walking speed is set to 5 kilometers per hour.\", \"impedanceAttributeName\": \"WalkTime\", \"simplificationToleranceUnits\": \"esriMeters\", \"uturnAtJunctions\": \"esriNFSBAllowBacktrack\", \"restrictionAttributeNames\": [\"Preferred for Pedestrians\", \"Walking\"], \"useHierarchy\": false, \"simplificationTolerance\": 2, \"timeAttributeName\": \"WalkTime\", \"distanceAttributeName\": \"Miles\", \"type\": \"WALK\", \"id\": \"caFAgoThrvUpkFBW\", \"name\": \"Walking Time\"}")
-        params.inputs["routes"] = AGSGeoprocessingString(value: "{\"features\":[{\"attributes\":{\"Name\":\"Traveller\",\"StartDepotName\": \"Technopark\",\"EndDepotName\":\"Technopark\",\"MaxTotalTime\": "  + total_time + "}}]}")
+        
+        let auxTravelMode : String = "{\"attributeParameterValues\": [{\"parameterName\": \"Restriction Usage\", \"attributeName\": \"Walking\", \"value\": \"PROHIBITED\"}, {\"parameterName\": \"Restriction Usage\", \"attributeName\": \"Preferred for Pedestrians\", \"value\": \"PREFER_LOW\"}, {\"parameterName\": \"Walking Speed (km/h)\", \"attributeName\": \"WalkTime\", \"value\": 5}], \"description\": \"Follows paths and roads that allow pedestrian traffic and finds solutions that optimize travel time. The walking speed is set to 5 kilometers per hour.\", \"impedanceAttributeName\": \"WalkTime\", \"simplificationToleranceUnits\": \"esriMeters\", \"uturnAtJunctions\": \"esriNFSBAllowBacktrack\", \"restrictionAttributeNames\": [\"Preferred for Pedestrians\", \"Walking\"], \"useHierarchy\": false, \"simplificationTolerance\": 2, \"timeAttributeName\": \"WalkTime\", \"distanceAttributeName\": \"Miles\", \"type\": \"WALK\", \"id\": \"caFAgoThrvUpkFBW\", \"name\": \"Walking Time\"}"
+        
+        params.inputs["travel_mode"] = AGSGeoprocessingString(value: auxTravelMode)
+        
+        let auxRoutes : String = "{\"features\":[{\"attributes\":{\"Name\":\"Traveller\",\"StartDepotName\": \"Technopark\",\"EndDepotName\":\"Technopark\",\"MaxTotalTime\": "  + total_time + "}}]}"
+        params.inputs["routes"] = AGSGeoprocessingString(value: auxRoutes)
         params.inputs["populate_directions"] = AGSGeoprocessingBoolean(value: true)
         
         var place_feature_list : [String] = []
@@ -92,8 +83,14 @@ class MapController: UIViewController {
         for bar in b.barList {
             place_feature_list.append(self.feature_helper(location: bar))
         }
+        
         params.inputs["orders"] = AGSGeoprocessingString(value: self.wrap_features(featureList: place_feature_list))
-        params.inputs["depots"] = AGSGeoprocessingString(value: self.wrap_features(featureList: [self.feature_helper(location: self.technopark)]))
+        
+        print(self.wrap_features(featureList: place_feature_list))
+        
+        let auxDepots : String = self.wrap_features(featureList: [self.feature_helper(location: self.technopark)])
+        print(auxDepots)
+        params.inputs["depots"] = AGSGeoprocessingString(value: auxDepots)
         
         // Initiate the job
         self.geoprocessingJob = self.geoprocessingTask.geoprocessingJob(with: params)
@@ -103,90 +100,34 @@ class MapController: UIViewController {
         }) { [weak self] (result: AGSGeoprocessingResult?, error: Error?) in
             
             if let error = error {
-//                self?.showAlert(messageText: "Error", informativeText: error.localizedDescription)
                 print("error")
             }
             else {
-                print(result)
+                // Remove previous layers
+                self?.mapView.map?.operationalLayers.removeAllObjects()
+                
+                // Add the new layer to the map
+//                var out_features : AGSGeoprocessingFeatures = result?.outputs["out_routes"] as! AGSGeoprocessingFeatures
+//                print(out_features.features?.geometryType)
+                if let resultFeatures = result?.outputs["out_routes"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
+                    for feature in featureSet.featureEnumerator().allObjects {
+                        let graphic = AGSGraphic(geometry: feature.geometry, symbol: nil, attributes: nil)
+                    }
+                }
+                
+                //set map view's viewpoint to the new layer's full extent
             }
         }
     }
     
-    func addStops() {
-        self.startGeometry = AGSPoint(x: technopark.long, y: technopark.lat, spatialReference: AGSSpatialReference(wkid: 3857))
-        self.endGeometry = AGSPoint(x: hb.long, y: hb.lat, spatialReference: AGSSpatialReference(wkid: 3857))
-        
-        let startStopGraphic = AGSGraphic(geometry: startGeometry, symbol: self.stopSymbol(withName: "Origin", textColor: UIColor.blue), attributes: nil)
-        let endStopGraphic = AGSGraphic(geometry: endGeometry, symbol: self.stopSymbol(withName: "Destination", textColor: UIColor.red), attributes: nil)
-        
-        self.stopGraphicsOverlay.graphics.addObjects(from: [startStopGraphic, endStopGraphic])
-    }
-    
-    // Method provides a text symbol for stop with specified parameters
-    func stopSymbol(withName name:String, textColor:UIColor) -> AGSTextSymbol {
-        return AGSTextSymbol(text: name, color: textColor, size: 20, horizontalAlignment: .center, verticalAlignment: .middle)
-    }
-    
-    func getDefaultParameters() {
-        
-        self.routeTask.defaultRouteParameters { [weak self] (params: AGSRouteParameters?, error: Error?) -> Void in
-            if let error = error {
-                print(error)
-            }
-            else {
-                //on completion store the parameters
-                self?.routeParameters = params
-                //add stops
-                self?.addStops()
-                //enable bar button item
-//                self?.routeBBI.isEnabled = true
-            }
-        }
-    }
-    
-    private func addBuoyPoints(to graphicsOverlay:AGSGraphicsOverlay) {
-        
-        //define the buoy locations
-        let wgs84 = AGSSpatialReference.wgs84()
-        
-        let buoy1Loc = AGSPoint(x: 8.5094722, y: 47.3828982, spatialReference: wgs84)
-        let buoy2Loc = AGSPoint(x: 8.517873, y: 47.390831, spatialReference: wgs84)
-        let buoy3Loc = AGSPoint(x: 8.515094, y: 47.391862, spatialReference: wgs84)
-        let buoy4Loc = AGSPoint(x: 8.519268, y: 47.388318, spatialReference: wgs84)
-        
-        //create a marker symbol
-        let buoyMarker = AGSSimpleMarkerSymbol(style: .circle, color: UIColor.red, size: 10)
-        
-        //create graphics
-        let buoyGraphic1 = AGSGraphic(geometry: buoy1Loc, symbol: buoyMarker, attributes: nil)
-        let buoyGraphic2 = AGSGraphic(geometry: buoy2Loc, symbol: buoyMarker, attributes: nil)
-        let buoyGraphic3 = AGSGraphic(geometry: buoy3Loc, symbol: buoyMarker, attributes: nil)
-        let buoyGraphic4 = AGSGraphic(geometry: buoy4Loc, symbol: buoyMarker, attributes: nil)
-        
-        //add the graphics to the graphics overlay
-        graphicsOverlay.graphics.addObjects(from: [buoyGraphic1, buoyGraphic2, buoyGraphic3, buoyGraphic4])
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension Double {
     func toString() -> String {
-        return String(format: "%.1f",self)
+        return String(format: "%.15f",self)
     }
 }
