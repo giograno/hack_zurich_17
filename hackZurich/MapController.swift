@@ -13,6 +13,36 @@ class MapController: UIViewController {
 
     
     @IBOutlet weak var mapView: AGSMapView!
+
+    // Maximum amount of time
+    var time            : Double = 0.0
+    var total_time      : String = "120"; // hard coded
+    
+    // Geoprocessing URL
+    let geo_URL         : String = "https://utility.arcgis.com/usrsvcs/appservices/ueHF8ushjjxEgUyO/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem/submitJob"
+    
+    //
+    var geoprocessingTask: AGSGeoprocessingTask!
+    var geoprocessingJob: AGSGeoprocessingJob!
+    
+    // Options selected
+    var isBars          : Bool = false
+    var isSightseeing   : Bool = false
+    var isCoffee        : Bool = false
+    
+    // Hardcoded technopark starting point
+    let technopark      : Place = Place(lat: 47.4142883, lon: 8.5495906, name: "Technopark Zurich")
+    let hb              : Place = Place(lat: 47.377923, lon: 8.5380011, name: "Technopark Zurich")
+    
+    
+    var startGeometry   : AGSPoint!
+    var endGeometry     : AGSPoint!
+    
+    var stopGraphicsOverlay = AGSGraphicsOverlay()
+
+    // The route task
+    var routeTask:AGSRouteTask!
+    var routeParameters:AGSRouteParameters!
     
     private var graphicsOverlay:AGSGraphicsOverlay!
     
@@ -25,12 +55,93 @@ class MapController: UIViewController {
         // assign the map to mapView
         self.mapView.map = map
         
+        // Initialize geoprocessing task with the url of the service
+        self.geoprocessingTask = AGSGeoprocessingTask(url: URL(string: geo_URL)!)
+
+        // initialize the route task
+        self.routeTask = AGSRouteTask(url: URL(string: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route")!)
+
         let graphicsOverlay = AGSGraphicsOverlay()
         self.mapView.graphicsOverlays.add(graphicsOverlay)
-        
+        calculate_route()
         //add some buoy positions to the graphics overlay
-        addBuoyPoints(to: graphicsOverlay)
+//        addBuoyPoints(to: graphicsOverlay)
 
+    }
+    
+    private func feature_helper(location: Place) -> String {
+        return "{\"geometry\":{\"x\":" + location.long.toString() + ",\"y\":" + location.lat.toString() + ", \"attributes\":{\"Name\":\"" + location.name + "\", \"ServiceTime\" : 35}}"
+    }
+    
+    private func wrap_features(featureList : [String]) -> String {
+        return "{\"features\": [" + featureList.joined(separator: ",") + "]}"
+    }
+    
+    private func calculate_route() {
+        
+        // Geoprocessing parameters
+        let params = AGSGeoprocessingParameters(executionType: .asynchronousSubmit)
+        params.inputs["default_date"] = AGSGeoprocessingDouble(value: 1455609600000)
+        params.inputs["time_units"] = AGSGeoprocessingString(value: "Minutes")
+        params.inputs["travel_mode"] = AGSGeoprocessingString(value: "{\"attributeParameterValues\": [{\"parameterName\": \"Restriction Usage\", \"attributeName\": \"Walking\", \"value\": \"PROHIBITED\"}, {\"parameterName\": \"Restriction Usage\", \"attributeName\": \"Preferred for Pedestrians\", \"value\": \"PREFER_LOW\"}, {\"parameterName\": \"Walking Speed (km/h)\", \"attributeName\": \"WalkTime\", \"value\": 5}], \"description\": \"Follows paths and roads that allow pedestrian traffic and finds solutions that optimize travel time. The walking speed is set to 5 kilometers per hour.\", \"impedanceAttributeName\": \"WalkTime\", \"simplificationToleranceUnits\": \"esriMeters\", \"uturnAtJunctions\": \"esriNFSBAllowBacktrack\", \"restrictionAttributeNames\": [\"Preferred for Pedestrians\", \"Walking\"], \"useHierarchy\": false, \"simplificationTolerance\": 2, \"timeAttributeName\": \"WalkTime\", \"distanceAttributeName\": \"Miles\", \"type\": \"WALK\", \"id\": \"caFAgoThrvUpkFBW\", \"name\": \"Walking Time\"}")
+        params.inputs["routes"] = AGSGeoprocessingString(value: "{\"features\":[{\"attributes\":{\"Name\":\"Traveller\",\"StartDepotName\": \"Technopark\",\"EndDepotName\":\"Technopark\",\"MaxTotalTime\": "  + total_time + "}}]}")
+        params.inputs["populate_directions"] = AGSGeoprocessingBoolean(value: true)
+        
+        var place_feature_list : [String] = []
+        let b : BarCoords = BarCoords()
+        for bar in b.barList {
+            place_feature_list.append(self.feature_helper(location: bar))
+        }
+        params.inputs["orders"] = AGSGeoprocessingString(value: self.wrap_features(featureList: place_feature_list))
+        params.inputs["depots"] = AGSGeoprocessingString(value: self.wrap_features(featureList: [self.feature_helper(location: self.technopark)]))
+        
+        // Initiate the job
+        self.geoprocessingJob = self.geoprocessingTask.geoprocessingJob(with: params)
+        
+        self.geoprocessingJob.start(statusHandler: { (status: AGSJobStatus) in
+            print(status.rawValue)
+        }) { [weak self] (result: AGSGeoprocessingResult?, error: Error?) in
+            
+            if let error = error {
+//                self?.showAlert(messageText: "Error", informativeText: error.localizedDescription)
+                print("error")
+            }
+            else {
+                print(result)
+            }
+        }
+    }
+    
+    func addStops() {
+        self.startGeometry = AGSPoint(x: technopark.long, y: technopark.lat, spatialReference: AGSSpatialReference(wkid: 3857))
+        self.endGeometry = AGSPoint(x: hb.long, y: hb.lat, spatialReference: AGSSpatialReference(wkid: 3857))
+        
+        let startStopGraphic = AGSGraphic(geometry: startGeometry, symbol: self.stopSymbol(withName: "Origin", textColor: UIColor.blue), attributes: nil)
+        let endStopGraphic = AGSGraphic(geometry: endGeometry, symbol: self.stopSymbol(withName: "Destination", textColor: UIColor.red), attributes: nil)
+        
+        self.stopGraphicsOverlay.graphics.addObjects(from: [startStopGraphic, endStopGraphic])
+    }
+    
+    // Method provides a text symbol for stop with specified parameters
+    func stopSymbol(withName name:String, textColor:UIColor) -> AGSTextSymbol {
+        return AGSTextSymbol(text: name, color: textColor, size: 20, horizontalAlignment: .center, verticalAlignment: .middle)
+    }
+    
+    func getDefaultParameters() {
+        
+        self.routeTask.defaultRouteParameters { [weak self] (params: AGSRouteParameters?, error: Error?) -> Void in
+            if let error = error {
+                print(error)
+            }
+            else {
+                //on completion store the parameters
+                self?.routeParameters = params
+                //add stops
+                self?.addStops()
+                //enable bar button item
+//                self?.routeBBI.isEnabled = true
+            }
+        }
     }
     
     private func addBuoyPoints(to graphicsOverlay:AGSGraphicsOverlay) {
@@ -72,4 +183,10 @@ class MapController: UIViewController {
     }
     */
 
+}
+
+extension Double {
+    func toString() -> String {
+        return String(format: "%.1f",self)
+    }
 }

@@ -40,6 +40,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         appBar.navigationBar.tintColor = UIColor.black
         appBar.addSubviewsToParent()
         
+        
         title = "Computational Tourism"
         
         // Setting the placeholders
@@ -62,7 +63,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // to implement
         print("To implement")
         var b : BarCoords = BarCoords()
-        b.populate()
+        for i in b.barList {
+            
+        }
     }
     
     func setupSlider() {
