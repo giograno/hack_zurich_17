@@ -34,6 +34,8 @@ class MapController: UIViewController {
     let technopark      : Place = Place(lat: 47.414288300000003, lon: 8.549590600000000, name: "Technopark")
     let hb              : Place = Place(lat: 47.377923, lon: 8.5380011, name: "Technopark")
     
+    var routeGraphicsOverlay = AGSGraphicsOverlay()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +47,8 @@ class MapController: UIViewController {
         
         // Initialize geoprocessing task with the url of the service
         self.geoprocessingTask = AGSGeoprocessingTask(url: URL(string: geo_URL)!)
+        
+        self.mapView.graphicsOverlays.addObjects(from: [routeGraphicsOverlay])
         
         calculate_route()
     }
@@ -58,6 +62,15 @@ class MapController: UIViewController {
         let joined : String = featureList.joined(separator: ",")
         let aux = "{\"features\": [" + joined + "]}"
         return aux
+    }
+    
+    //method provides a line symbol for the route graphic
+    func routeSymbol() -> AGSSymbol {
+        
+        let outerSymbol = AGSSimpleLineSymbol(style: .solid, color: UIColor.blue, width: 5)
+        let innerSymbol = AGSSimpleLineSymbol(style: .solid, color: UIColor.blue, width: 2)
+        let compositeSymbol = AGSCompositeSymbol(symbols: [outerSymbol, innerSymbol])
+        return compositeSymbol
     }
     
     private func calculate_route() {
@@ -95,6 +108,8 @@ class MapController: UIViewController {
         // Initiate the job
         self.geoprocessingJob = self.geoprocessingTask.geoprocessingJob(with: params)
         
+        routeGraphicsOverlay.graphics.removeAllObjects()
+        
         self.geoprocessingJob.start(statusHandler: { (status: AGSJobStatus) in
             print(status.rawValue)
         }) { [weak self] (result: AGSGeoprocessingResult?, error: Error?) in
@@ -104,14 +119,22 @@ class MapController: UIViewController {
             }
             else {
                 // Remove previous layers
-                self?.mapView.map?.operationalLayers.removeAllObjects()
+//                self?.mapView.map?.operationalLayers.removeAllObjects()
                 
                 // Add the new layer to the map
 //                var out_features : AGSGeoprocessingFeatures = result?.outputs["out_routes"] as! AGSGeoprocessingFeatures
 //                print(out_features.features?.geometryType)
+                
+//                guard let generatedRoute = routeResult?.routes[0] else {
+//                    self?.showAlert(messageText: "Error", informativeText: "No route found")
+//                    return
+//                }
+                
+                
                 if let resultFeatures = result?.outputs["out_routes"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
                     for feature in featureSet.featureEnumerator().allObjects {
-                        let graphic = AGSGraphic(geometry: feature.geometry, symbol: nil, attributes: nil)
+                        let graphic = AGSGraphic(geometry: feature.geometry, symbol: self?.routeSymbol(), attributes: nil)
+                        self?.routeGraphicsOverlay.graphics.add(graphic)
                     }
                 }
                 
