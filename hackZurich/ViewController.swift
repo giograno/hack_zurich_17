@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     // Material Components navigation bar
     let appBar = MDCAppBar()
-    
+        
     // Switch outlets
     @IBOutlet weak var sightseeing_switch: UISwitch!
     @IBOutlet weak var bars_switch: UISwitch!
@@ -61,6 +61,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func startSearch(_ sender: Any) {
         // to implement
         print("To implement")
+        var b : BarCoords = BarCoords()
+        b.populate()
     }
     
     func setupSlider() {
