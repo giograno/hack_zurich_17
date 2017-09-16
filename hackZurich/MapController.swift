@@ -26,7 +26,7 @@ class MapController: UIViewController {
     var geoprocessingJob: AGSGeoprocessingJob!
     
     // Options selected
-    var isBars          : Bool = false
+    var isBars          : Bool = true
     var isSightseeing   : Bool = false
     var isCoffee        : Bool = false
     

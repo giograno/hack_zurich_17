@@ -74,6 +74,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="startSearch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nhL-iv-H4i"/>
+                                    <segue destination="Aos-sd-OsI" kind="show" identifier="GenerateMap" id="Lgi-q9-O1F"/>
                                 </connections>
                             </button>
                         </subviews>

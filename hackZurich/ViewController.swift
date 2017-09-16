@@ -62,10 +62,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func startSearch(_ sender: Any) {
         // to implement
         print("To implement")
-        var b : BarCoords = BarCoords()
-        for i in b.barList {
-            
-        }
+        self.performSegue(withIdentifier: "GenerateMap", sender: self)
     }
     
     func setupSlider() {
