@@ -15,7 +15,7 @@ class MapController: UIViewController {
 
     // Maximum amount of time
     var time            : Double = 0.0
-    var total_time      : String = "230"; // hard coded
+    var total_time      : String = "240"; // hard coded
     
     // Geoprocessing URL
     let geo_URL         : String = "https://utility.arcgis.com/usrsvcs/appservices/ueHF8ushjjxEgUyO/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem"
@@ -60,7 +60,7 @@ class MapController: UIViewController {
     }
     
     private func feature_helper(location: Place) -> String {
-        let aux : String = "{\"geometry\":{\"x\":" + location.long.toString() + ",\"y\":" + location.lat.toString() + "}, \"attributes\":{\"Name\":\"" + location.name + "\", \"ServiceTime\" : 35}}"
+        let aux : String = "{\"geometry\":{\"x\":" + location.long.toString() + ",\"y\":" + location.lat.toString() + "}, \"attributes\":{\"Name\":\"" + location.name + "\", \"ServiceTime\" : 20}}"
         return aux
     }
     
