@@ -51,13 +51,14 @@ class Utils {
         strLabel.numberOfLines = 0
         strLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         strLabel.text = msg
+        strLabel.font = strLabel.font.withSize(20)
         strLabel.textAlignment = .center
         strLabel.center = CGPoint(x: 125, y: (height/2 + 20.0))
-        strLabel.textColor = UIColor.white
+        strLabel.textColor = UIColor.black
         
         let size: CGFloat = 260
         var screeHeight: CGFloat
-        screeHeight = targetVC.view.frame.size.height
+        screeHeight = targetVC.view.frame.size.height - 64
 
         let screenWidth = targetVC.view.frame.size.width
         
