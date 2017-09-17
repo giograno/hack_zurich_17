@@ -40,6 +40,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         startingPosition.placeholder = "Starting Point"
         endingPosition.placeholder = "Ending Point"
+        endingPosition.text = "Technopark, Zurich, Switzerland"
+        startingPosition.text = "Technopark, Zurich, Switzerland"
         
         setupSlider()
         setupTextField()
