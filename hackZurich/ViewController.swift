@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Utils.setNavigationControllerStatusBar(self, title: "Computational Tourism", color: CIColor(color: Utils.myColor), style: UIBarStyle.default)
+        Utils.setNavigationControllerStatusBar(self, title: "CityExplorer", color: CIColor(color: Utils.myColor), style: UIBarStyle.default)
         
         // Setting the placeholders
         self.view.addSubview(startingPosition)
