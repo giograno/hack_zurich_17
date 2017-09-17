@@ -48,7 +48,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-        print(fake[indexPath.row])
         cell.textLabel?.text = fake[indexPath.row]
         return cell
     }

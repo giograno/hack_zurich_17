@@ -115,8 +115,10 @@ class MapController: UIViewController {
         routeGraphicsOverlay.graphics.removeAllObjects()
         stopGraphicsOverlay.graphics.removeAllObjects()
         
+        Utils.progressBarDisplayer(self, msg: "Building Awesome Trips", indicator: true)
         self.geoprocessingJob.start(statusHandler: { (status: AGSJobStatus) in
             print(status.rawValue)
+            
         }) { [weak self] (result: AGSGeoprocessingResult?, error: Error?) in
             
             if let error = error {
@@ -124,6 +126,7 @@ class MapController: UIViewController {
             }
             else {
                 
+                Utils.removeProgressBar(self!)
                 if let resultFeatures = result?.outputs["out_routes"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
                     for feature in featureSet.featureEnumerator().allObjects {
                         let graphic = AGSGraphic(geometry: feature.geometry, symbol: self?.routeSymbol(), attributes: nil)
