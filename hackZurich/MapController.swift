@@ -15,7 +15,7 @@ class MapController: UIViewController {
 
     // Maximum amount of time
     var time            : Double = 0.0
-    var total_time      : String = "200"; // hard coded
+    var total_time      : String = "230"; // hard coded
     
     // Geoprocessing URL
     let geo_URL         : String = "https://utility.arcgis.com/usrsvcs/appservices/ueHF8ushjjxEgUyO/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem"
@@ -54,13 +54,13 @@ class MapController: UIViewController {
         // Initialize geoprocessing task with the url of the service
         self.geoprocessingTask = AGSGeoprocessingTask(url: URL(string: geo_URL)!)
         
-        self.mapView.graphicsOverlays.addObjects(from: [routeGraphicsOverlay, stopGraphicsOverlay])
+        self.mapView.graphicsOverlays.addObjects(from: [stopGraphicsOverlay, routeGraphicsOverlay])
         
         calculate_route()
     }
     
     private func feature_helper(location: Place) -> String {
-        let aux : String = "{\"geometry\":{\"x\":" + location.long.toString() + ",\"y\":" + location.lat.toString() + "}, \"attributes\":{\"Name\":\"" + location.name + "\", \"ServiceTime\" : 15}}"
+        let aux : String = "{\"geometry\":{\"x\":" + location.long.toString() + ",\"y\":" + location.lat.toString() + "}, \"attributes\":{\"Name\":\"" + location.name + "\", \"ServiceTime\" : 35}}"
         return aux
     }
     
@@ -139,7 +139,9 @@ class MapController: UIViewController {
                 if let resultFeatures = result?.outputs["out_stops"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
                     for feature in featureSet.featureEnumerator().allObjects {
                         i += 1
-                        let graphic = AGSGraphic(geometry: feature.geometry, symbol: markerSymbol, attributes: nil)
+                        print(feature.attributes)
+                        let aux = feature.attributes["Name"] as! String
+                        let graphic = AGSGraphic(geometry: self?.createPoint(name: aux), symbol: markerSymbol, attributes: nil)
                         self?.stopGraphicsOverlay.graphics.add(graphic)
                     }
                     print(i)
@@ -166,6 +168,24 @@ class MapController: UIViewController {
                 
             }
         }
+    }
+    
+    private func createPoint(name: String) -> AGSPoint {
+        if name == "Technopark" {
+            let point = AGSPoint(x: self.technopark.long, y: self.technopark.lat, spatialReference: AGSSpatialReference.wgs84())
+            return point
+        }
+        
+        let b : BarCoords = BarCoords()
+        var myPoint : Place = Place(lat: 0, lon: 0, name: "")
+        for bar in b.barList {
+            if bar.name == name {
+                myPoint = bar
+            }
+        }
+        // create a point using x,y coordinates and a spatial reference
+        let point = AGSPoint(x: myPoint.long, y: myPoint.lat, spatialReference: AGSSpatialReference.wgs84())
+        return point
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
