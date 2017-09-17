@@ -147,10 +147,8 @@ class MapController: UIViewController {
 //                        let aux = String(describing: feature.attributes["ObjectID"]) + feature.attributes["Text"] as! String
                         let no = String(describing: feature.attributes["ObjectID"]!)
                         let aux = feature.attributes["Text"] as! String
-                        print(no + " - " + aux)
-                        self?.directions.append(aux)
+                        self?.directions.append(no + " - " + aux)
                     }
-                    print(i)
                 }
 //                var i = 0
 //                if let resultFeatures = result?.outputs["out_directions"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
@@ -185,15 +183,16 @@ class MapController: UIViewController {
 //        }
 //    }
 //    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "Indication" {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Indication" {
+            let controller = segue.destination as! TableViewController
+            controller.fake = self.directions
+            
 //            if let viewController = segue.destination as? TableViewController {
-//                if(barcodeInt != nil){
-//                    viewController.detailItem = barcodeInt as AnyObject
+//                    viewController.fake = self.directions
 //                }
-//            }
-//        }
-//    }
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
