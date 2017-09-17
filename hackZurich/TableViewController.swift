@@ -12,6 +12,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     let fake  = ["Turn", "Turn", "Turn"]
     
+    //provide route with direction maneuvers
+//    var route:AGSRoute?
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {

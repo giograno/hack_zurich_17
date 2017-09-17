@@ -36,6 +36,9 @@ class MapController: UIViewController {
     var routeGraphicsOverlay = AGSGraphicsOverlay()
     var stopGraphicsOverlay = AGSGraphicsOverlay()
     
+    // directions to pass to the next view
+    var directions : [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let addButton = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(goInstructions(_:)))
@@ -133,9 +136,19 @@ class MapController: UIViewController {
                 if let resultFeatures = result?.outputs["out_stops"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
                     for feature in featureSet.featureEnumerator().allObjects {
                         i += 1
-                        print(feature.attributes)
                         let graphic = AGSGraphic(geometry: feature.geometry, symbol: markerSymbol, attributes: nil)
                         self?.stopGraphicsOverlay.graphics.add(graphic)
+                    }
+                    print(i)
+                }
+                
+                if let resultFeatures = result?.outputs["out_directions"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
+                    for feature in featureSet.featureEnumerator().allObjects {
+//                        let aux = String(describing: feature.attributes["ObjectID"]) + feature.attributes["Text"] as! String
+                        let no = String(describing: feature.attributes["ObjectID"]!)
+                        let aux = feature.attributes["Text"] as! String
+                        print(no + " - " + aux)
+                        self?.directions.append(aux)
                     }
                     print(i)
                 }
@@ -163,6 +176,24 @@ class MapController: UIViewController {
     func goInstructions(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "Indication", sender: self)
     }
+    
+//    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "Indication" {
+//            let controller = segue.destinationController as! DirectionsViewController
+//            controller.route = self.generatedRoute
+//            controller.preferredContentSize = CGSize(width: 300, height: 300)
+//        }
+//    }
+//    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "Indication" {
+//            if let viewController = segue.destination as? TableViewController {
+//                if(barcodeInt != nil){
+//                    viewController.detailItem = barcodeInt as AnyObject
+//                }
+//            }
+//        }
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
