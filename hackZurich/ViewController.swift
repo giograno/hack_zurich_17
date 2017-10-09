@@ -12,6 +12,9 @@ import MaterialComponents.MaterialSlider
 import MaterialComponents.MaterialTextFields
 import MaterialComponents.MaterialDialogs
 
+import CoreLocation
+import AddressBookUI
+
 // Handle the first user input view
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -35,8 +38,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         startingPosition.placeholder = "Starting Point"
         endingPosition.placeholder = "Ending Point"
-        endingPosition.text = "Technopark, Zurich, Switzerland"
-        startingPosition.text = "Technopark, Zurich, Switzerland"
         
         setupSlider()
         setupTextField()
@@ -55,8 +56,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func search(_ sender: Any) {
-        print("here")
-        self.performSegue(withIdentifier: "GenerateMap", sender: self)
+//        print("here")
+//        self.performSegue(withIdentifier: "GenerateMap", sender: self)
+        print(self.forwardGeocoding(address: startingPosition.text!))
+        print(self.forwardGeocoding(address: endingPosition.text!))
     }
     
     @objc func didChangeSliderValue(senderSlider:MDCSlider) {
@@ -71,6 +74,38 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let endingPositionController = MDCTextInputControllerDefault(textInput: endingPosition)
         endingPositionController.isFloatingEnabled = false
         endingPosition.delegate = self
+    }
+    
+    func forwardGeocoding(address: String) {
+        CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
+            if error != nil {
+                print(error)
+                self.showAlertForAddress(address: address)
+                return
+            }
+            
+            if let place = placemarks {
+                if place.count > 0  {
+                    let place = placemarks?[0]
+                    let location = place?.location
+                    let coordinate = location?.coordinate
+                    print("\nlat: \(coordinate!.latitude), long: \(coordinate!.longitude)")
+                }
+            } else {
+                print("error")
+                self.showAlertForAddress(address: address)
+            }
+        })
+    }
+    
+    func showAlertForAddress(address: String) {
+        let alertController = MDCAlertController(title: "That's not correct!",
+                                                 message: "That address seems to do not exist: \(address)")
+        let action = MDCAlertAction(title:"OK") { (action) in print("OK") }
+        alertController.addAction(action)
+        
+        present(alertController, animated: true)
+//        present(alertController, animated:true, completion:...)
     }
     
     override func didReceiveMemoryWarning() {
