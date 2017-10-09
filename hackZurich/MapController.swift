@@ -155,17 +155,6 @@ class MapController: UIViewController {
                         self?.directions.append(no + " - " + aux)
                     }
                 }
-//                var i = 0
-//                if let resultFeatures = result?.outputs["out_directions"] as? AGSGeoprocessingFeatures, let featureSet = resultFeatures.features {
-//                    for feature in featureSet.featureEnumerator().allObjects {
-//                        i += 1
-//                        print(feature.attributes)
-//                        let graphic = AGSGraphic(geometry: feature.geometry, symbol: markerSymbol, attributes: nil)
-//                        self?.stopGraphicsOverlay.graphics.add(graphic)
-//                    }
-//                    print(i)
-//                }
-                
             }
         }
     }
@@ -188,32 +177,14 @@ class MapController: UIViewController {
         return point
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        
-//        addButton.tintColor = UIColor.black
-//        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = addButton
-//    }
-    
-    func goInstructions(_ sender: UIBarButtonItem) {
+    @objc func goInstructions(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "Indication", sender: self)
     }
     
-//    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "Indication" {
-//            let controller = segue.destinationController as! DirectionsViewController
-//            controller.route = self.generatedRoute
-//            controller.preferredContentSize = CGSize(width: 300, height: 300)
-//        }
-//    }
-//    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Indication" {
             let controller = segue.destination as! TableViewController
             controller.fake = self.directions
-            
-//            if let viewController = segue.destination as? TableViewController {
-//                    viewController.fake = self.directions
-//                }
         }
     }
     

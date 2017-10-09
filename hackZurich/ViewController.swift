@@ -14,9 +14,6 @@ import MaterialComponents.MaterialDialogs
 
 // Handle the first user input view
 class ViewController: UIViewController, UITextFieldDelegate {
-
-//    // Material Components navigation bar
-//    let appBar = MDCAppBar()
     
     // Switch outlets
     @IBOutlet weak var sightseeing_switch: UISwitch!
@@ -64,7 +61,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "GenerateMap", sender: self)
     }
     
-    func didChangeSliderValue(senderSlider:MDCSlider) {
+    @objc func didChangeSliderValue(senderSlider:MDCSlider) {
         print("Did change slider value to: %@", senderSlider.value)
     }
     
@@ -77,34 +74,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         endingPositionController.isFloatingEnabled = false
         endingPosition.delegate = self
     }
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        let edit = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(showPopup(_:)))
-//        edit.tintColor = UIColor.white
-//        self.appBar.navigationBar.rightBarButtonItem = edit
-//    }
-    
-//    func showPopup(_ sender: UIBarButtonItem) {
-//        let messageString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur " +
-//            "ultricies diam libero, eget porta arcu feugiat sit amet. Maecenas placerat felis sed risus " +
-//            "maximus tempus. Integer feugiat, augue in pellentesque dictum, justo erat ultricies leo, " +
-//            "quis eleifend nisi eros dictum mi. In finibus vulputate eros, in luctus diam auctor in. " +
-//            "Aliquam fringilla neque at augue dictum iaculis. Etiam ac pellentesque lectus. Aenean " +
-//            "vestibulum, tortor nec cursus euismod, lectus tortor rhoncus massa, eu interdum lectus urna " +
-//            "ut nulla. Phasellus elementum lorem sit amet sapien dictum, vel cursus est semper. Aenean " +
-//            "vel turpis maximus, accumsan dui quis, cursus turpis. Nunc a tincidunt nunc, ut tempus " +
-//            "libero. Morbi ut orci laoreet, luctus neque nec, rhoncus enim. Cras dui erat, blandit ac " +
-//            "malesuada vitae, fringilla ac ante. Nullam dui diam, condimentum vitae mi et, dictum " +
-//        "euismod libero. Aliquam commodo urna vitae massa convallis aliquet."
-//        
-//        let materialAlertController = MDCAlertController(title: nil, message: messageString)
-//        
-//        let action = MDCAlertAction(title:"OK") { (_) in print("OK") }
-//        
-//        materialAlertController.addAction(action)
-//        
-//        self.present(materialAlertController, animated: true, completion: nil)
-//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
