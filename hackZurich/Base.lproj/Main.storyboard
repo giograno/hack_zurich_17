@@ -21,29 +21,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JPp-OF-Bfi" customClass="MDCTextField">
-                                <rect key="frame" x="16" y="196" width="343" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4mF-XJ-VcW">
+                                <rect key="frame" x="33" y="131" width="308" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qYb-ya-JN3" customClass="MDCTextField">
-                                <rect key="frame" x="16" y="309" width="343" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GDy-fq-4Fp">
+                                <rect key="frame" x="33" y="200" width="308" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFu-8Q-cGC">
-                                <rect key="frame" x="128" y="474" width="119" height="53"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pg6-5O-bDw">
+                                <rect key="frame" x="140" y="420" width="95" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                <state key="normal" title="SEARCH">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Search"/>
                                 <connections>
-                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kt8-zq-5pn"/>
+                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Ev-NF-TQf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -51,9 +49,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="cf4-gk-8Kf"/>
                     <connections>
-                        <outlet property="button2" destination="VFu-8Q-cGC" id="Y3v-be-wQ5"/>
-                        <outlet property="endingPosition" destination="qYb-ya-JN3" id="Akd-do-6e8"/>
-                        <outlet property="startingPosition" destination="JPp-OF-Bfi" id="pAS-AW-fsv"/>
+                        <outlet property="button" destination="Pg6-5O-bDw" id="8A0-Go-gHv"/>
+                        <outlet property="endingPosition" destination="GDy-fq-4Fp" id="Fjf-VG-i2Q"/>
+                        <outlet property="startingPosition" destination="4mF-XJ-VcW" id="OEh-Kx-dft"/>
                         <segue destination="Aos-sd-OsI" kind="show" identifier="GenerateMap" id="TsQ-CS-bzA"/>
                     </connections>
                 </viewController>

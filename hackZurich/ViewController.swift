@@ -22,11 +22,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var mode: Mode = Mode.tourist
     
     // Material Components Text Fields for the positions
-    @IBOutlet weak var startingPosition: MDCTextField!
-    @IBOutlet weak var endingPosition: MDCTextField!
+
+    @IBOutlet weak var startingPosition: UITextField!
+    @IBOutlet weak var endingPosition: UITextField!
     
-    @IBOutlet weak var button2: UIButton!
     
+    @IBOutlet weak var button: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,11 +56,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(slider)
     }
     
+
     @IBAction func search(_ sender: Any) {
-//        print("here")
-//        self.performSegue(withIdentifier: "GenerateMap", sender: self)
-        print(self.forwardGeocoding(address: startingPosition.text!))
-        print(self.forwardGeocoding(address: endingPosition.text!))
+        print("here")
+        print(self.startingPosition.text)
+        print(self.endingPosition.text)
+        
+        self.forwardGeocoding(address: self.startingPosition.text!)
+        self.forwardGeocoding(address: self.endingPosition.text!)
+        self.performSegue(withIdentifier: "GenerateMap", sender: self)
     }
     
     @objc func didChangeSliderValue(senderSlider:MDCSlider) {
@@ -67,13 +72,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupTextField() {
-        let startingPositionController = MDCTextInputControllerDefault(textInput: startingPosition)
-        startingPositionController.isFloatingEnabled = false
-        startingPosition.delegate = self
+//        let startingPositionController = MDCTextInputControllerDefault(textInput: startingPosition)
+//        startingPositionController.isFloatingEnabled = false
+//        startingPosition.delegate = self
+//
+        self.startingPosition.delegate = self
+        self.endingPosition.delegate = self
         
-        let endingPositionController = MDCTextInputControllerDefault(textInput: endingPosition)
-        endingPositionController.isFloatingEnabled = false
-        endingPosition.delegate = self
+//        let endingPositionController = MDCTextInputControllerDefault(textInput: endingPosition)
+//        endingPositionController.isFloatingEnabled = false
+//        endingPosition.delegate = self
     }
     
     func forwardGeocoding(address: String) {
@@ -105,7 +113,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         alertController.addAction(action)
         
         present(alertController, animated: true)
-//        present(alertController, animated:true, completion:...)
     }
     
     override func didReceiveMemoryWarning() {
