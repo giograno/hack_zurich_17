@@ -15,10 +15,8 @@ import MaterialComponents.MaterialDialogs
 // Handle the first user input view
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    // Switch outlets
-    @IBOutlet weak var sightseeing_switch: UISwitch!
-    @IBOutlet weak var bars_switch: UISwitch!
-    @IBOutlet weak var coffee_switch: UISwitch!
+    // handle the sightseing or the pub crawling mdoe
+    var mode: Mode = Mode.tourist
     
     // Material Components Text Fields for the positions
     @IBOutlet weak var startingPosition: MDCTextField!
