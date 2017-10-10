@@ -28,6 +28,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet weak var button: UIButton!
+    
+    var validCall : Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,13 +61,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
 
     @IBAction func search(_ sender: Any) {
-        print("here")
-        print(self.startingPosition.text)
-        print(self.endingPosition.text)
         
-        self.forwardGeocoding(address: self.startingPosition.text!)
-        self.forwardGeocoding(address: self.endingPosition.text!)
-        self.performSegue(withIdentifier: "GenerateMap", sender: self)
+        let group = DispatchGroup()
+        group.enter()
+        forwardGeocoding(address: startingPosition.text!) {
+            print("ending starting")
+            group.leave()
+        }
+        group.enter()
+        forwardGeocoding(address: endingPosition.text!) {
+            print("ending beginning")
+            group.leave()
+        }
+        
+        group.notify(queue: DispatchQueue.main, execute: {
+            print("everything is done")
+            if self.validCall == true {
+                self.performSegue(withIdentifier: "GenerateMap", sender: self)
+            }
+        })
+        
     }
     
     @objc func didChangeSliderValue(senderSlider:MDCSlider) {
@@ -84,11 +100,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        endingPosition.delegate = self
     }
     
-    func forwardGeocoding(address: String) {
+    func forwardGeocoding(address: String, completion: @escaping () -> ()){
         CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
             if error != nil {
                 print(error)
                 self.showAlertForAddress(address: address)
+                self.validCall = false
                 return
             }
             
@@ -98,11 +115,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     let location = place?.location
                     let coordinate = location?.coordinate
                     print("\nlat: \(coordinate!.latitude), long: \(coordinate!.longitude)")
+                    self.validCall = true
                 }
             } else {
                 print("error")
                 self.showAlertForAddress(address: address)
+                self.validCall = false
             }
+            completion()
         })
     }
     
