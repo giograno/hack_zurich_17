@@ -13,14 +13,15 @@ class MapController: UIViewController {
     
     @IBOutlet weak var mapView: AGSMapView!
 
-    // Maximum amount of time
+    // Set of variables assigned by the calling view
     var time            : Double = 0.0
     var total_time      : String = "240"; // hard coded
+    var staringPoint: Place = Place(lat: 0, lon: 0, name: "starting")
+    var endingPoint: Place = Place(lat: 0, lon: 0, name: "starting")
     
     // Geoprocessing URL
     let geo_URL         : String = "https://utility.arcgis.com/usrsvcs/appservices/ueHF8ushjjxEgUyO/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem"
     
-    //
     var geoprocessingTask: AGSGeoprocessingTask!
     var geoprocessingJob: AGSGeoprocessingJob!
     
@@ -28,10 +29,6 @@ class MapController: UIViewController {
     var isBars          : Bool = true
     var isSightseeing   : Bool = false
     var isCoffee        : Bool = false
-    
-    // Hardcoded technopark starting point
-    let technopark      : Place = Place(lat: 47.390173, lon: 8.5062531, name: "Technopark")
-    let hb              : Place = Place(lat: 47.377923, lon: 8.5380011, name: "Technopark")
     
     var routeGraphicsOverlay = AGSGraphicsOverlay()
     var stopGraphicsOverlay = AGSGraphicsOverlay()
@@ -46,7 +43,7 @@ class MapController: UIViewController {
         Utils.setMapsController(self, title: "Maps", color: CIColor(color: Utils.myColor), style: UIBarStyle.default, button: addButton)
         
         // instantiate map with basemap, initial viewpoint and level of detail
-        let map = AGSMap(basemapType: AGSBasemapType.streets, latitude: 47.390173, longitude: 8.5062531, levelOfDetail: 13)
+        let map = AGSMap(basemapType: AGSBasemapType.streets, latitude: self.staringPoint.lat, longitude: self.staringPoint.long, levelOfDetail: 13)
         
         // assign the map to mapView
         self.mapView.map = map
@@ -105,8 +102,17 @@ class MapController: UIViewController {
         
         params.inputs["orders"] = AGSGeoprocessingString(value: self.wrap_features(featureList: place_feature_list))
         
+        var auxDepots: String = ""
         
-        let auxDepots : String = self.wrap_features(featureList: [self.feature_helper(location: self.technopark)])
+        if self.staringPoint == self.endingPoint {
+            auxDepots = self.wrap_features(featureList: [self.feature_helper(location: self.staringPoint)])
+        } else {
+            var depotsList : [String] = []
+            depotsList.append(self.feature_helper(location: self.staringPoint))
+            depotsList.append(self.feature_helper(location: self.endingPoint))
+            auxDepots = self.wrap_features(featureList: depotsList)
+        }
+        
         params.inputs["depots"] = AGSGeoprocessingString(value: auxDepots)
         
         // Initiate the job
@@ -160,11 +166,6 @@ class MapController: UIViewController {
     }
     
     private func createPoint(name: String) -> AGSPoint {
-        if name == "Technopark" {
-            let point = AGSPoint(x: self.technopark.long, y: self.technopark.lat, spatialReference: AGSSpatialReference.wgs84())
-            return point
-        }
-        
         let b : BarCoords = BarCoords()
         var myPoint : Place = Place(lat: 0, lon: 0, name: "")
         for bar in b.barList {

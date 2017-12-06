@@ -25,9 +25,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var startingPosition: UITextField!
     @IBOutlet weak var endingPosition: UITextField!
-    
+    @IBOutlet weak var timePerSite: UITextField!
+    @IBOutlet weak var totalTime: UITextField!
     
     @IBOutlet weak var button: UIButton!
+    
+    var staring : Place = Place(lat: 0, lon: 0, name: "dummy")
+    var ending : Place = Place(lat: 0, lon: 0, name: "dummy")
     
     var validCall : Bool = false
     
@@ -43,33 +47,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         startingPosition.placeholder = "Starting Point"
         endingPosition.placeholder = "Ending Point"
         
-        setupSlider()
         setupTextField()
     }
     
-    func setupSlider() {
-        let slider = MDCSlider(frame: CGRect(x: 67, y: 350, width: 260, height: 75))
-        slider.minimumValue = 0
-        slider.maximumValue = 5
-        slider.numberOfDiscreteValues = 8
-        
-        slider.addTarget(self,
-                         action: #selector(didChangeSliderValue(senderSlider:)),
-                         for: .valueChanged)
-        view.addSubview(slider)
-    }
-    
-
     @IBAction func search(_ sender: Any) {
         
         let group = DispatchGroup()
         group.enter()
-        forwardGeocoding(address: startingPosition.text!) {
+        forwardGeocoding(address: startingPosition.text!, position: "starting") {
             print("ending starting")
             group.leave()
         }
         group.enter()
-        forwardGeocoding(address: endingPosition.text!) {
+        forwardGeocoding(address: endingPosition.text!, position: "ending") {
             print("ending beginning")
             group.leave()
         }
@@ -83,27 +73,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @objc func didChangeSliderValue(senderSlider:MDCSlider) {
-        print("Did change slider value to: %@", senderSlider.value)
-    }
-    
     func setupTextField() {
-//        let startingPositionController = MDCTextInputControllerDefault(textInput: startingPosition)
-//        startingPositionController.isFloatingEnabled = false
-//        startingPosition.delegate = self
-//
         self.startingPosition.delegate = self
         self.endingPosition.delegate = self
-        
-//        let endingPositionController = MDCTextInputControllerDefault(textInput: endingPosition)
-//        endingPositionController.isFloatingEnabled = false
-//        endingPosition.delegate = self
     }
     
-    func forwardGeocoding(address: String, completion: @escaping () -> ()){
+    func forwardGeocoding(address: String, position: String, completion: @escaping () -> ()){
         CLGeocoder().geocodeAddressString(address, completionHandler: { (placemarks, error) in
             if error != nil {
-                print(error)
                 self.showAlertForAddress(address: address)
                 self.validCall = false
                 return
@@ -114,6 +91,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     let place = placemarks?[0]
                     let location = place?.location
                     let coordinate = location?.coordinate
+                    let coords : Place = Place(lat: Double((coordinate?.latitude)!), lon: Double((coordinate?.longitude)!), name: "dummy")
+                    
+                    if position == "starting" {
+                        self.staring = coords
+                    } else {
+                        self.ending = coords
+                    }
+                    
                     print("\nlat: \(coordinate!.latitude), long: \(coordinate!.longitude)")
                     self.validCall = true
                 }
@@ -124,6 +109,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
             completion()
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GenerateMap" {
+            if let destinationController = segue.destination as? MapController {
+                destinationController.time = Double(self.timePerSite.text!)!
+                destinationController.total_time = self.totalTime.text!
+                destinationController.staringPoint = self.staring
+                destinationController.endingPoint = self.ending
+            }
+        }
     }
     
     func showAlertForAddress(address: String) {
