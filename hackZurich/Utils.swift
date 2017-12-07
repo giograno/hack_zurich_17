@@ -24,6 +24,7 @@ class Utils {
 
     static func setNavigationControllerStatusBar(_ myView: UIViewController, title: String, color: CIColor, style: UIBarStyle) {
         let navigation = myView.navigationController!
+//        navigation.navigationBar.prefersLargeTitles = true
         navigation.navigationBar.barStyle = style
         navigation.navigationBar.barTintColor = UIColor(ciColor: color)
         navigation.navigationBar.isTranslucent = false

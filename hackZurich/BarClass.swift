@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Place {
+class Place: Equatable {
     let lat: Double
     let long: Double
     let name: String
@@ -18,6 +18,10 @@ class Place {
         self.lat = lat
         self.long = lon
         self.name = name
+    }
+    
+    static func == (place1: Place, place2: Place) -> Bool {
+        return place1.lat == place2.lat && place2.long == place1.long
     }
 }
 
