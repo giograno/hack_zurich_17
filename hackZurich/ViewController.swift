@@ -91,11 +91,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     let place = placemarks?[0]
                     let location = place?.location
                     let coordinate = location?.coordinate
-                    let coords : Place = Place(lat: Double((coordinate?.latitude)!), lon: Double((coordinate?.longitude)!), name: "dummy")
+                    var coords : Place = Place(lat: 0, lon: 0, name: "dummy")
                     
                     if position == "starting" {
+                        coords = Place(lat: Double((coordinate?.latitude)!), lon: Double((coordinate?.longitude)!), name: self.startingPosition.text!)
                         self.staring = coords
                     } else {
+                        coords = Place(lat: Double((coordinate?.latitude)!), lon: Double((coordinate?.longitude)!), name: self.endingPosition.text!)
                         self.ending = coords
                     }
                     
@@ -116,7 +118,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if let destinationController = segue.destination as? MapController {
                 destinationController.time = Double(self.timePerSite.text!)!
                 destinationController.total_time = self.totalTime.text!
-                destinationController.staringPoint = self.staring
+                destinationController.startingPoint = self.staring
                 destinationController.endingPoint = self.ending
             }
         }

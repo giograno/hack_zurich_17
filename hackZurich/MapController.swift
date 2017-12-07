@@ -16,7 +16,7 @@ class MapController: UIViewController {
     // Set of variables assigned by the calling view
     var time            : Double = 0.0
     var total_time      : String = "240"; // hard coded
-    var staringPoint: Place = Place(lat: 0, lon: 0, name: "starting")
+    var startingPoint: Place = Place(lat: 0, lon: 0, name: "starting")
     var endingPoint: Place = Place(lat: 0, lon: 0, name: "starting")
     
     // Geoprocessing URL
@@ -43,7 +43,7 @@ class MapController: UIViewController {
         Utils.setMapsController(self, title: "Maps", color: CIColor(color: Utils.myColor), style: UIBarStyle.default, button: addButton)
         
         // instantiate map with basemap, initial viewpoint and level of detail
-        let map = AGSMap(basemapType: AGSBasemapType.streets, latitude: self.staringPoint.lat, longitude: self.staringPoint.long, levelOfDetail: 13)
+        let map = AGSMap(basemapType: AGSBasemapType.streets, latitude: self.startingPoint.lat, longitude: self.startingPoint.long, levelOfDetail: 13)
         
         // assign the map to mapView
         self.mapView.map = map
@@ -90,7 +90,7 @@ class MapController: UIViewController {
         
         params.inputs["travel_mode"] = AGSGeoprocessingString(value: auxTravelMode)
         
-        let auxRoutes : String = "{\"features\":[{\"attributes\":{\"Name\":\"Traveller\",\"StartDepotName\": \"Technopark\",\"EndDepotName\":\"Technopark\",\"MaxTotalTime\": "  + total_time + "}}]}"
+        let auxRoutes : String = "{\"features\":[{\"attributes\":{\"Name\":\"Traveller\",\"StartDepotName\": \"\(self.startingPoint.name)\",\"EndDepotName\":\"\(self.endingPoint.name)\",\"MaxTotalTime\": "  + total_time + "}}]}"
         params.inputs["routes"] = AGSGeoprocessingString(value: auxRoutes)
         params.inputs["populate_directions"] = AGSGeoprocessingBoolean(value: true)
         
@@ -104,11 +104,11 @@ class MapController: UIViewController {
         
         var auxDepots: String = ""
         
-        if self.staringPoint == self.endingPoint {
-            auxDepots = self.wrap_features(featureList: [self.feature_helper(location: self.staringPoint)])
+        if self.startingPoint == self.endingPoint {
+            auxDepots = self.wrap_features(featureList: [self.feature_helper(location: self.startingPoint)])
         } else {
             var depotsList : [String] = []
-            depotsList.append(self.feature_helper(location: self.staringPoint))
+            depotsList.append(self.feature_helper(location: self.startingPoint))
             depotsList.append(self.feature_helper(location: self.endingPoint))
             auxDepots = self.wrap_features(featureList: depotsList)
         }
